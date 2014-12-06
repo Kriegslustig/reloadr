@@ -24,7 +24,12 @@ function reloadr_wp_enqueue_scripts () {
 }
 
 function js_set_event_source () {
+  $settings_arr = [
+    'ignore' => get_option('reloadr_ignore'),
+    'watch_dir' => get_option('reloadr_watch_direcotry')
+  ];
   $url =  plugin_dir_url(__FILE__) . 'source.php';
+  $url .= '?' . http_build_query($settings_arr);
   echo "<script>var reloadr = {}; reloadr.reloadSource = '$url'; </script>";
 }
 add_action('wp_head', 'js_set_event_source');

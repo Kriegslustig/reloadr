@@ -19,7 +19,7 @@ class Reloadr {
     $this->check_this_dir = $dir;
   }
 
-  public function set_listener ($file) {
+  public function set_listener () {
     $this->create_index($this->check_this_dir);
     $this->set_interval(500, function () {
       $this->check_for_updates($this->check_this_dir);
