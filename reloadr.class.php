@@ -3,6 +3,7 @@
 class Reloadr {
   private $filemtime_index = [];
   private $check_this_dir = '../';
+  private $ignores = ['/.*\.DS_Store/', '/.*\.git.*/'];
 
   function __construct () {
 
@@ -26,6 +27,10 @@ class Reloadr {
     });
   }
 
+  public function set_ignores($string) {
+    $this->ignores = explode(' ,', $string);
+  }
+
   private function send_event ($data) {
     echo 'data:' . $data . PHP_EOL;
     echo PHP_EOL;
@@ -36,10 +41,6 @@ class Reloadr {
   private function reload () {
     $msg = 'reloadr: reload';
     $this->send_event($msg);
-  }
-
-  public function js_set_event_source () {
-
   }
 
   private function create_index ($where) {
@@ -61,14 +62,26 @@ class Reloadr {
     $dir_scan = scandir($dir);
     foreach($dir_scan as $value) {
       if($value !== '.' && $value !== '..') {
-        $abs_path = realpath($dir.'/'.$value);
-        if(is_dir($abs_path)) {
-          $this->for_every_file($abs_path, $callback);
-        } else if (is_file($abs_path)) {
-          $callback($abs_path);
+        if(!$this->should_ignore($value)) {
+          $abs_path = realpath($dir.'/'.$value);
+          if(is_dir($abs_path)) {
+            $this->for_every_file($abs_path, $callback);
+          } else if (is_file($abs_path)) {
+            $callback($abs_path);
+          }
         }
       }
     }
+  }
+
+  private function should_ignore ($filepath) {
+    foreach ($this->ignores as $regex) {
+      $preg_match_ret = preg_match($regex, $filepath);
+      if($preg_match_ret === 1) {
+        return true;
+      }
+    }
+    return false;
   }
 
   private function set_interval ($timeout, $callback) {

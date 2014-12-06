@@ -54,5 +54,5 @@
       'class="regular-text ltr" '.
       'value="' . get_option('reloadr_ignore') . '" '.
       'type="text" >'.
-      '<p>You can use simple regex for this, seperate them with commas<br>/\.DS_STORE/, /\.git/</p>';
+      '<p>You can use simple regex for this, seperate them with commas<br>/.*\.DS_STORE/, /.*\.git.*/<br>You connot use commas.</p>';
   }
