@@ -22,7 +22,7 @@ function reloadr_wp_enqueue_scripts () {
 }
 
 function js_set_event_source () {
-  $url =  plugin_dir_url(__FILE__) . 'reloadr_source.php';
+  $url =  plugin_dir_url(__FILE__) . 'source.php';
   echo "<script>var reloadr = {}; reloadr.reloadSource = '$url'; </script>";
 }
 add_action('wp_head', 'js_set_event_source');
