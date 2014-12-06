@@ -31,7 +31,7 @@ class Reloadr {
     $this->ignores = explode(' ,', $string);
   }
 
-  private function send_event ($data) {
+  public function send_event ($data) {
     echo 'data:' . $data . PHP_EOL;
     echo PHP_EOL;
     ob_flush();
