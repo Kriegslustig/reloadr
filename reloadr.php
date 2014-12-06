@@ -30,6 +30,7 @@ function js_set_event_source () {
   ];
   $url =  plugin_dir_url(__FILE__) . 'source.php';
   $url .= '?' . http_build_query($settings_arr);
-  echo "<script>var reloadr = {}; reloadr.reloadSource = '$url'; </script>";
+  $notifications = (get_option('reloadr_notifications') == 'on' ? 'true' : 'false');
+  echo "<script>var reloadr = {reloadSource: '$url', notifications: $notifications};</script>";
 }
 add_action('wp_head', 'js_set_event_source');

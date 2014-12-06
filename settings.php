@@ -32,6 +32,15 @@
       'general',
       'reloadr'
     );
+
+    register_setting('general', 'reloadr_notifications');
+    add_settings_field(
+      'reloadr_notifications',
+      'Notifications',
+      'reloadr_add_setting_notifications_callback',
+      'general',
+      'reloadr'
+    );
   }
 
   function reloadr_add_settings_page_callback () {
@@ -55,4 +64,13 @@
       'value="' . get_option('reloadr_ignore') . '" '.
       'type="text" >'.
       '<p>You can use simple regex for this, seperate them with commas<br>/.*\.DS_STORE/, /.*\.git.*/<br>You connot use commas.</p>';
+  }
+
+  function reloadr_add_setting_notifications_callback () {
+    echo '<input '.
+      'name="reloadr_notifications" '.
+      'id="reloadr_notifications" '.
+      'type="checkbox" '.
+      (get_option('reloadr_notifications') == 'on' ? 'checked' : 'unchecked') . ' ' .
+      ' >';
   }
