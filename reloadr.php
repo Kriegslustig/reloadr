@@ -14,6 +14,8 @@
  * Plugin URI: https://github.com/Kriegslustig/reloadr
 */
 
+require 'settings.php';
+
 $plugin_name = 'reloadr';
 
 add_action('wp_enqueue_scripts', 'reloadr_wp_enqueue_scripts');
