@@ -13,14 +13,14 @@ window.addEventListener('load', function(){
   }
   var source = new EventSource(reloadr.reloadSource);
   source.addEventListener('message', function(e){
-    if(e.data.indexOf('reloadr: ') > -1) {
-      var method = e.data.split('reloadr: ')[1];
+    var message = JSON.parse(e.data);
+    if(message.reloadr) {
       if(reloadr.notifications) {
         var n = new Notification('Reloadr', {body: location.href.split('//')[1] + ' has reloaded'});
       }
-      reloadr[method]();
+      reloadr[message.reloadr.method]();
     } else {
-      console.log(e.data);
+      console.log(message);
     }
   }, false)
 }, false);

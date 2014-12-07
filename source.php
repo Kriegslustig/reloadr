@@ -1,9 +1,9 @@
 <?php
 
 require 'reloadr.class.php';
+require 'event_stream.class.php';
 
 $reloadr = new Reloadr;
-$reloadr->set_headers();
 
 $dir = (
   $_GET['watch_dir'] != '0' ?

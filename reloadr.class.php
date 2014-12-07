@@ -4,26 +4,21 @@ class Reloadr {
   private $filemtime_index = [];
   private $check_this_dir = '../';
   private $ignores = ['/.*\.DS_Store/', '/.*\.git.*/'];
+  public $event_stream;
 
-  /*
-   * Adds the needed headers for event-streams
-   * Caching can intefeere with event-streams
-   *
-   * @uses header()
-   * @param bool $caching Wether or not caching should be active
-   */
-  public function set_headers ($caching = false) {
-    header('Content-Type: text/event-stream');
-    if(!$caching) {
-      header('Cache-Control: no-cache');
-    }
+  public function __construct () {
+    $this->event_stream = new Event_stream;
+    $this->event_stream->set_headers();
+  }
+
+  public function set_callback ($callback) {
+    $this->callback = $callback;
   }
 
   /*
    * Sets the directory to watch
    *
    * @param string $dir The path (relative or absolute) to the dir to watch
-   *
    * @uses reloadr::check_this_dir
    */
   public function set_dir ($dir) {
@@ -49,7 +44,7 @@ class Reloadr {
    *
    * @param regex array $string Contains all regex to be ignored
    * @var regex array Structure: /regex/, /regex/
-   * @uses reloadr::ignores
+   * @uses reloadr::$ignores
    * @uses explode()
    */
   public function set_ignores($string) {
@@ -57,28 +52,17 @@ class Reloadr {
   }
 
   /*
-   * Sends an event to the client
-   * The event is parsed by reloadr.js
-   *
-   * @param string $data Can be anything it will be revieved by reloadr.js
-   * @uses ob_flush()
-   * @uses flush()
-   */
-  public function send_event ($data) {
-    echo 'data:' . $data . PHP_EOL;
-    echo PHP_EOL;
-    ob_flush();
-    flush();
-  }
-
-  /*
    * This sends the reload command to the client
    *
-   * @uses reloadr::send_event
+   * @uses reloadr::$event_stream::send_event
    */
   private function reload () {
-    $msg = 'reloadr: reload';
-    $this->send_event($msg);
+    $msg = [
+      'reloadr' => [
+        'method' => 'reload'
+      ]
+    ];
+    $this->event_stream->send_event($msg);
   }
 
   /*
