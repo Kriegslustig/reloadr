@@ -19,6 +19,8 @@ window.addEventListener('load', function(){
         var n = new Notification('Reloadr', {body: location.href.split('//')[1] + ' has reloaded'});
       }
       reloadr[method]();
+    } else {
+      console.log(e.data);
     }
   }, false)
 }, false);

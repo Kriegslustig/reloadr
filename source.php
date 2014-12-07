@@ -10,7 +10,6 @@ $dir = (
     urldecode($_GET['watch_dir']):
     '../../themes'
   );
-$reloadr->send_event($dir);
 $reloadr->set_dir($dir);
 
 if ($_GET['ignore'] != 0 && $_GET['ignore'] !== '') {
