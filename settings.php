@@ -63,7 +63,7 @@
       'class="regular-text ltr" '.
       'value="' . get_option('reloadr_ignore') . '" '.
       'type="text" >'.
-      '<p>You can use simple regex for this, seperate them with commas<br>/.*\.DS_STORE/, /.*\.git.*/<br>You connot use commas.</p>';
+      '<p>You can use simple regex for this, seperate them with a comma followed my a space<br><code>/.*\.DS_STORE/, /.*\.git.*/</code><br>You connot use commas.</p>';
   }
 
   function reloadr_add_setting_notifications_callback () {
