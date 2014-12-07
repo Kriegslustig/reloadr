@@ -176,10 +176,9 @@ class Reloadr {
    */
   private function set_interval ($timeout, $callback) {
     $timeout = $timeout * 1000;
-    usleep($timeout);
     while (true) {
-      $callback();
       usleep($timeout);
+      $callback();
     }
   }
 }
