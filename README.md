@@ -14,5 +14,7 @@ A WordPress-Plugin that reloads all pages when a file in the current theme is up
 
 ToDo's
 =======
+* Modularize the send_event stuff
+* JSON parse methods sent by server
 * Roll it out to the WordPress-Plugin directory
 * Evaluate Inotify integration
