@@ -5,8 +5,9 @@ A WordPress-Plugin that reloads all pages when a file in a specified place is up
 
 ### Requirements
 ##### Serverside
-* PHP `> 5.3`
+* PHP `> 5.4`
     - Anonymous functions
+    - Short Syntax for Arrays
 * WordPress `> 4.0.0`
 
 ##### Clientside
