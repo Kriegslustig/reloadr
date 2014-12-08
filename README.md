@@ -4,12 +4,12 @@ reloadr
 A WordPress-Plugin that reloads all pages when a file in a specified place is updated.
 
 ### Requirements
-**Serverside**
-* PHP > 5.3`
+##### Serverside
+* PHP `> 5.3`
     - Anonymous functions
-* WordPress > `4.0.0`
+* WordPress `> 4.0.0`
 
-**Clientside**
+##### Clientside
 * SSE (Server-Sent-Events)
 [Further Information on SSE support](http://caniuse.com/#feat=eventsource)
 
@@ -23,7 +23,9 @@ A WordPress-Plugin that reloads all pages when a file in a specified place is up
 Reloadr adds some settings to the `Settings/General`-Page.
 
 **Watch this directory**: The directory in which reloadr will watch for changes. *Default: The theme directory*
+
 **Ignore these files**: A list of regex that should be ignored. Reloadr checks every files absolute path against alle these regex. The regex should be seperated by a comma followed by a space (`, `) and they should be wrapped in forwardslashes. *Default:* `/.*\.DS_Store/, /.*\.git.*/`
+
 **Notifications**: *Default:* `false`
 
 ## ToDo's
