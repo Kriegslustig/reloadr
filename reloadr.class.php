@@ -3,7 +3,7 @@
 class Reloadr {
   private $filemtime_index = [];
   private $check_this_dir = '../';
-  private $ignores = ['/.*\.DS_Store/', '/.*\.git.*/'];
+  private $ignores = '/(.*\.DS_Store|.*\.git.*)/';
   public $event_stream;
 
   /**
@@ -61,7 +61,7 @@ class Reloadr {
    * @uses explode()
    */
   public function set_ignores($string) {
-    $this->ignores = explode(', ', $string);
+    $this->ignores = '/' . str_replace(', ', '|', $string) . '/';
   }
 
   /**
@@ -167,11 +167,9 @@ class Reloadr {
    * @return bool
    */
   private function should_ignore ($filepath) {
-    foreach ($this->ignores as $regex) {
-      $preg_match_ret = preg_match($regex, $filepath);
-      if($preg_match_ret === 1) {
-        return true;
-      }
+    $preg_match_ret = preg_match($this->ignores, $filepath);
+    if($preg_match_ret === 1) {
+      return true;
     }
     return false;
   }
