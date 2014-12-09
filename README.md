@@ -30,7 +30,5 @@ Reloadr adds some settings to the `Settings/General`-Page.
 **Notifications**: *Default:* `false`
 
 ## ToDo's
-* Modularize the send_event stuff
-* JSON parse methods sent by server
 * Roll it out to the WordPress-Plugin directory
 * Evaluate Inotify integration
