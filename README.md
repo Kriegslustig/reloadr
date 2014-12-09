@@ -24,7 +24,7 @@ Reloadr adds some settings to the `Settings/General`-Page.
 
 **Watch this directory**: The directory in which reloadr will watch for changes. *Default: The theme directory*
 
-**Ignore these files**: A list of regex that should be ignored. Reloadr checks every files absolute path against alle these regex. The regex should be seperated by a comma followed by a space (`, `) and they should be wrapped in forwardslashes. *Default:* `/.*\.DS_Store/, /.*\.git.*/`
+**Ignore these files**: A list of regex that should be ignored. Reloadr checks every files absolute path against alle these regex. The regex should be seperated by a comma followed by a space (`, `) *Default:* `.*\.DS_Store, .*\.git.*`
 
 **Notifications**: *Default:* `false`
 

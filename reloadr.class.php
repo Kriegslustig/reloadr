@@ -58,7 +58,7 @@ class Reloadr {
    * @var regex array Structure: /regex/, /regex/
    *
    * @uses Reloadr::$ignores
-   * @uses explode()
+   * @uses str_replace()
    */
   public function set_ignores($string) {
     $this->ignores = '/(' . str_replace(', ', '|') . ')/';
@@ -130,7 +130,6 @@ class Reloadr {
    *
    *     $callback($abs_path);
    *
-   * @uses Reloadr::should_ignore
    * @uses Reloadr::for_every_file
    * @uses scandir()
    * @uses realpath()
