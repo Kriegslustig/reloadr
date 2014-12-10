@@ -12,6 +12,8 @@ class Reloadr {
    *
    * @access public
    *
+   * @param anonymous function $callback This will be called when a file changes
+   *
    * @uses Event_stream
    * @uses Reloadr::$event_stream
    * @uses Reloadr::$event_stream::set_headers
@@ -94,11 +96,14 @@ class Reloadr {
    * @uses Reloadr::$callback()
    * @uses Reloadr::$filemtime_index
    * @uses filemtime
+   *
+   * @todo find out if there's a better solution to #thisisfuckingugly
    */
   private function check_for_updates ($where) {
     $this->for_every_file ($where, function ($file) {
       $this_filemtime = filemtime($file);
       if($this_filemtime !== $this->filemtime_index[$file]) {
+        // #thisisfuckingugly
         $callback = $this->callback;
         $callback();
       }

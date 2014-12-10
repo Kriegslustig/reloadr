@@ -30,5 +30,6 @@ Reloadr adds some settings to the `Settings/General`-Page.
 **Notifications**: *Default:* `false`
 
 ## ToDo's
+* Maybe refactor all file manipulation and general OS stuff to be a seperate class
 * Roll it out to the WordPress-Plugin directory
 * Evaluate Inotify integration
