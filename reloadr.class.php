@@ -54,8 +54,8 @@ class Reloadr {
    * @access public
    *
    * @uses Reloadr::create_index
-   * @uses Reloadr::set_interval
    * @uses Reloadr::check_for_updates
+   * @uses Utitlities::set_interval
    */
   public function set_listener () {
     $this->create_index($this->check_this_dir);
