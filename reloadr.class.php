@@ -1,10 +1,11 @@
 <?php
+require 'utilities.class.php';
 
 class Reloadr {
   private $filemtime_index = [];
   private $check_this_dir = '../';
   private $ignores = '/(.*\.DS_Store|.*\.git.*)/';
-  public $event_stream;
+  private $callback;
 
   /**
    * Instanciates the event_stream and sets the needed headers
@@ -15,9 +16,23 @@ class Reloadr {
    * @uses Reloadr::$event_stream
    * @uses Reloadr::$event_stream::set_headers
    */
-  public function __construct () {
-    $this->event_stream = new Event_stream;
-    $this->event_stream->set_headers();
+  public function __construct ($callback) {
+    $this->callback = $callback;
+  }
+
+  /**
+   * Set the ignore array
+   *
+   * @access public
+   *
+   * @param regex array $string Contains all regex to be ignored
+   * @var regex array Structure: /regex/, /regex/
+   *
+   * @uses Reloadr::$ignores
+   * @uses str_replace()
+   */
+  public function set_ignores($string) {
+    $this->ignores = '/(' . str_replace(', ', '|') . ')/';
   }
 
   /**
@@ -44,40 +59,9 @@ class Reloadr {
    */
   public function set_listener () {
     $this->create_index($this->check_this_dir);
-    $this->set_interval(500, function () {
+    Utilities::set_interval(500, function () {
       $this->check_for_updates($this->check_this_dir);
     });
-  }
-
-  /**
-   * Set the ignore array
-   *
-   * @access public
-   *
-   * @param regex array $string Contains all regex to be ignored
-   * @var regex array Structure: /regex/, /regex/
-   *
-   * @uses Reloadr::$ignores
-   * @uses str_replace()
-   */
-  public function set_ignores($string) {
-    $this->ignores = '/(' . str_replace(', ', '|') . ')/';
-  }
-
-  /**
-   * This sends the reload command to the client
-   *
-   * @access private
-   *
-   * @uses Reloadr::$event_stream::send_event
-   */
-  private function reload () {
-    $msg = [
-      'reloadr' => [
-        'method' => 'reload'
-      ]
-    ];
-    $this->event_stream->send_event($msg);
   }
 
   /**
@@ -107,7 +91,7 @@ class Reloadr {
    * @type path A relative or absolute path
    *
    * @uses Reloadr::for_every_file
-   * @uses Reloadr::reload
+   * @uses Reloadr::$callback()
    * @uses Reloadr::$filemtime_index
    * @uses filemtime
    */
@@ -115,7 +99,8 @@ class Reloadr {
     $this->for_every_file ($where, function ($file) {
       $this_filemtime = filemtime($file);
       if($this_filemtime !== $this->filemtime_index[$file]) {
-        $this->reload();
+        $callback = $this->callback;
+        $callback();
       }
     });
   }
@@ -171,24 +156,5 @@ class Reloadr {
       return true;
     }
     return false;
-  }
-
-  /**
-   * Sets an infinite loop in which a callback is calle
-   *
-   * @access private
-   *
-   * @param miliseconds $timeout
-   * @param anonymous function $callback
-   *
-   * @uses $callback()
-   * @uses usleep()
-   */
-  private function set_interval ($timeout, $callback) {
-    $timeout = $timeout * 1000;
-    while (true) {
-      usleep($timeout);
-      $callback();
-    }
   }
 }

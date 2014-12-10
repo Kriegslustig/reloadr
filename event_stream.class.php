@@ -31,7 +31,7 @@ class Event_stream {
    * @uses ob_flush()
    * @uses flush()
    */
-  public function send_event ($data) {
+  public static function send_event ($data) {
     $data = json_encode($data);
     echo 'data:' . $data . PHP_EOL;
     echo PHP_EOL;
